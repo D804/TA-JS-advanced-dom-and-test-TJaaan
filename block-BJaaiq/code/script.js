@@ -1,38 +1,28 @@
-document.addEventListener("DOMContentLoaded", function () {
-    alert("The content of the DOM is loaded");
+let root = document.querySelector('ul');
+ let max = 3;
+let index = 0;
+function addQuotes(){
+    for (let i= 0; i< max; i++){
+     let li = document.createElement("li");
+     let blockquote = document.createElement("blockquote");
+     let cite = document.createElement("cite");
+     blockquote.innerText = quotes[index].quoteText;
+     cite.innerText = quotes[index].quoteAuthor;
+     li.append(blockquote,cite);
+     root.append(li);
+     index++;   
+    } 
+} 
 
-    let  quoteContainer = document.getElementById("quoteContainer");
-    let  quotesPerPage = 3;
-    let  quotes = [...quotes]; 
-
-    function displayQuotes(startIndex, count) {
-        for (let i = startIndex; i < startIndex + count; i++) {
-            if (i >= quotes.length) {
-                window.removeEventListener("scroll", scrollHandler);
-                return;
-            }
-            const quote = quotes[i];
-            const quoteElement = document.createElement("div");
-            quoteElement.classList.add("quote");
-            quoteElement.innerHTML = `<p>${quote.text}</p><p class="author">- ${quote.author}</p>`;
-            quoteContainer.appendChild(quoteElement);
-        }
+document.addEventListener("scroll",function(){
+    let scrollTop = document.documentElement.scrollTop;
+    let scrollHeight = document.documentElement.scrollHeight;
+    let clientHeight = document.documentElement.clientHeight;
+    if(scrollTop + clientHeight >= scrollHeight && index < quotes.length){
+        addQuotes();
     }
-
-    function checkScroll() {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const windowHeight = window.innerHeight;
-        const documentHeight = Math.max(
-            document.body.scrollHeight, document.documentElement.scrollHeight,
-            document.body.offsetHeight, document.documentElement.offsetHeight,
-            document.body.clientHeight, document.documentElement.clientHeight
-        );
-
-        if (scrollTop + windowHeight >= documentHeight - 100) {
-            displayQuotes(quoteContainer.children.length, quotesPerPage);
-        }
-    }
-    window.addEventListener("scroll", checkScroll);
-
-    displayQuotes(0, quotesPerPage);
+})
+window.addEventListener("DOMContentLoaded",function(){
+this.alert("The content of window is loaded");
+addQuotes();
 });
