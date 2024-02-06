@@ -48,25 +48,31 @@ table {
 }
 /* custom style */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     text-align: center;
+     line-height: 1.5;
+     background-color: rgba(255, 220, 177, 0.5);
+     color:rgb(112, 132, 132);
+
+
+}
+blockquote {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+
+}
+ li {
+     padding: 4rem; 
+}
+cite {
+    color: rgb(228, 63, 63);
+    font-weight: 600;
+    font-size: 1.2rem;
+
 }
 
-#quoteContainer {
-    width: 60%;
-    margin: auto;
-    padding: 20px;
-}
-
-.quote {
+/* .quote {
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
-}
-
-.author {
-    margin-top: 5px;
-    font-style: italic;
-    color: #666;
-}
+} */
