@@ -1,20 +1,50 @@
-let first = document.querySelector(".firstInput");
-first.addEventListener("keyup", function(event) {
-    let content = event.target.value;
-    console.log(content);
+let form = document.querySelector("form");
+let ul = document.querySelector('ul');
+let cardsData = JSON.parse(localStorage.getItem('cards'));
+form.addEventListener("submit",(event)=>{
+  event.preventDefault();
+  let title = event.target.elements.title.value;
+  let category = event.target.elements.category.value;
+  cardsData.push({title, category});
+  localStorage.setItem('cards',JSON.stringify(cardsData));
+  createUI(cardsData,ul);
+});
+function handleEdit(event,info,id,label){
+ let elm = event.target;
+ let input = document.createElement('input');
+ input.value = info;
+ input.addEventListener('keyup',(e) =>{
+  if(e.keyCode ===13){
+    let updatedValue = e.target.value;
+    cardsData[id][label] = updatedValue;
+    createUI();
+    localStorage.setItem('cards',JSON.stringify(cardsData));
+  }
+ }),
+ input.addEventListener(blur,(e)=>{
+  let updatedValue = e.target.value;
+  cardsData[id][label] = updatedValue;
+  createUI();
+  localStorage.setItem('cards',JSON.stringify(cardsData))
+ 
+ });
+
+let parent = event.target.parentElement;
+parent.replaceChild(input,elm);
+}
+function createUI(data = cardsData,root= ul){
+  root.innerHTML = '';
+  let fragment = new DocumentFragment();
+  data.forEach((cardInfo,index)=>{
+    let li  = document.createElement('li');
+    let p = document.createElement('p');
+    let h2 = document.createElement("h2");
+    p.addEventListener('dbClick',(event)=>
+    handleEdit(event,cardInfo.category,index,'category')
+    );
+    li.append(p,h2);
+    fragment.appendChild(li);
   });
-  let title = document.querySelector(".secondInput");
-  title.addEventListener("keyup", function(event) {
-      let content = event.target.value;
-    });
-    let div = document.createElement("div");
-    div.classList.add("contentContainer");
-    contentContainer.style.background = "tomato";
-    let input = document.createElement("input");
-    input.setAttribute("type", "text");
-
-let submit = document.querySelector("button");
-    submit.addEventListener("click",function(event){
-
-    })
-
+  root.append(fragment);
+}
+createUI(cardsData,ul);

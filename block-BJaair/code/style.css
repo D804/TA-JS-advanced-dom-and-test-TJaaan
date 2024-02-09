@@ -76,3 +76,15 @@ input {
 	background-color: black;
 	color: white;
 }
+ul{
+	display: flex;
+	background-color: brown;
+	width: 20%;
+	margin: 2rem;
+	
+	
+}
+li {
+	font-size: 1.2rem;	
+}
+
